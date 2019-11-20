@@ -5,7 +5,7 @@ class Sender(models.Model):
     Sender_Name = models.CharField(max_length=100, primary_key=True)
     Sender_Number = models.CharField(max_length=100)
     Sender_addr = models.CharField(max_length=100)
-    Sender_date = models.DateField()
+    Sender_date = models.DateField(auto_now = True)
 
     def __str__(self):
         return self.Sender_Name
