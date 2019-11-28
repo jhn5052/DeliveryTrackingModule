@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'track_module',
+    'track_module.apps.TrackModuleConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
