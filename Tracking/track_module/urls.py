@@ -5,8 +5,9 @@ from track_module import views
 
 #라우터 기준으로 객체 생성
 router = DefaultRouter()
-router.register('Sender', views.PostViewSet) #delivary이름의 viewset
-
+router.register(r'SendRecieveInfo', views.SendRecieveViewSet)#delivery이름의 viewset
+router.register(r'Parcel', views.ParcelViewSet)
+router.register(r'DeliveryMan', views.DeliveryManViewSet)
 urlpatterns = [
     path('', include(router.urls)),
 ]

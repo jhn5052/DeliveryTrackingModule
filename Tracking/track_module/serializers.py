@@ -1,17 +1,13 @@
-from .models import Sender, Reciever, Parcel, DeliveryMan
+from .models import SendRecieveInfo, Parcel, DeliveryMan
 from rest_framework import serializers
 
-class SenderSerializer(serializers.ModelSerializer):
+class SendRecieveSerializer(serializers.ModelSerializer):
+    Parcel_Num = serializers.ReadOnlyField(source="ParcelNum")
     class Meta:
-        #어떤 모델을 serializer시킬건지
-        model = Sender
-        fields = '__all__'
-
-class RecieverSerializer(serializers.ModelSerializer):
-    class Meta:
-        #어떤 모델을 serializer시킬건지
-        model = Reciever
-        fields = '__all__'
+        model = SendRecieveInfo
+        fields = ('Sender_Name', 'Sender_phone', 'Sender_addr', 'Sender_date',
+                'Reciever_Name', 'Reciever_phone', 'Reciever_addr', 'Parcel_Num')
+        #fields = '__all__'
 
 class ParcelSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,8 +15,12 @@ class ParcelSerializer(serializers.ModelSerializer):
         model = Parcel
         fields = '__all__'
 
+
 class DeliveryManSerializer(serializers.ModelSerializer):
+    author_name = serializers.ReadOnlyField(
+        source="author.username"
+    )
     class Meta:
         #어떤 모델을 serializer시킬건지
         model = DeliveryMan
-        fields = '__all__'
+        fields = ('pk', 'ManPhone', 'ParcelNum', 'author_name')
