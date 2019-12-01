@@ -9,7 +9,6 @@ class SendRecieveInfo(models.Model):
     Reciever_Name = models.CharField(max_length=100, default="null")
     Reciever_phone = models.CharField(max_length=100, default="null")
     Reciever_addr = models.CharField(max_length=100, default="null")
-    #auto_increment_id = models.AutoField(primary_key=True)
 
     def number():
         no = SendRecieveInfo.objects.count()
@@ -20,33 +19,23 @@ class SendRecieveInfo(models.Model):
 
 
     ParcelNum = models.IntegerField(default=number, unique=True, primary_key=True)
-    
-
     def __str__(self):
         return str(self.ParcelNum)
 
-class Parcel(models.Model):
-    ParcelUpdate = models.BooleanField(default=True) #택배 상태 update될 때
-    ParcelStatus = models.CharField(max_length=100, default="배송 준비중")
-    ParcelNum = models.ForeignKey(
-        SendRecieveInfo,
-        on_delete=models.CASCADE,
-        null=True
-    )
-    def __str__(self):
-        return str(self.ParcelNum)
 
 class DeliveryMan(models.Model):
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        default=1,
-        on_delete=models.CASCADE
-    )
-    ManPhone = models.CharField(max_length=50, default="null") #별로 필요 없을 듯
-    ParcelNum = models.ForeignKey(
-        SendRecieveInfo, 
-        on_delete=models.CASCADE,
-        null=True
-    )
+    DeliveryMan_Name = models.CharField(max_length=50, default="홍길동")
+    ManPhone = models.CharField(max_length=50, default="null")
+    #ParcelNum = models.ForeignKey(
+    #    SendRecieveInfo, 
+    #    on_delete=models.CASCADE,
+    #    related_name='SendRecieveInfo',
+    #    null=True
+    #)
+    ParcelNum = models.ManyToManyField(SendRecieveInfo)
+    Update_date = models.DateField(auto_now = True)
+    ParcelLocation = models.CharField(max_length=100, default="한국외대")
+    ParcelStatus = models.CharField(max_length=100, default="배송 준비중")
+
     def __str__(self):
-        return self.author
+        return self.ParcelNum
