@@ -26,13 +26,12 @@ class SendRecieveInfo(models.Model):
 class DeliveryMan(models.Model):
     DeliveryMan_Name = models.CharField(max_length=50, default="홍길동")
     ManPhone = models.CharField(max_length=50, default="null")
-    #ParcelNum = models.ForeignKey(
-    #    SendRecieveInfo, 
-    #    on_delete=models.CASCADE,
-    #    related_name='SendRecieveInfo',
-    #    null=True
-    #)
-    ParcelNum = models.ManyToManyField(SendRecieveInfo)
+    ParcelNums = models.ForeignKey(
+        SendRecieveInfo, 
+        on_delete=models.CASCADE,
+        related_name='SendRecieveInfo',
+        null=True
+    )
     Update_date = models.DateField(auto_now = True)
     ParcelLocation = models.CharField(max_length=100, default="한국외대")
     ParcelStatus = models.CharField(max_length=100, default="배송 준비중")

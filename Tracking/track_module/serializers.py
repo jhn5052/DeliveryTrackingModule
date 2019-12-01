@@ -13,4 +13,4 @@ class DeliveryManSerializer(serializers.ModelSerializer):
     class Meta:
         #어떤 모델을 serializer시킬건지
         model = DeliveryMan
-        fields = ('DeliveryMan_Name', 'ManPhone', 'ParcelNum', 'Update_date', 'ParcelLocation','ParcelStatus')
+        fields = ('DeliveryMan_Name', 'ManPhone', 'ParcelNums', 'Update_date', 'ParcelLocation','ParcelStatus')

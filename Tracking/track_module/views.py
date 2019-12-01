@@ -21,7 +21,7 @@ class DeliveryManViewSet(viewsets.ModelViewSet):
     serializer_class = DeliveryManSerializer
 
     filter_backends = [SearchFilter]
-    search_fields = ('SendRecieveInfo__ParcelNum',)
+    search_fields = ('ParcelNums__ParcelNum',)
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -32,4 +32,3 @@ class DeliveryManViewSet(viewsets.ModelViewSet):
         #    return qs 
         return qs
         
-    
