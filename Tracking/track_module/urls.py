@@ -18,6 +18,8 @@ urlpatterns = [
     path("", views.SendRecieveView.as_view(), name="list"), #전체 DB list보여줌
     path("create/", views.SendRecieveCreate.as_view(), name="create"), #택배 생성
     path("read/<int:pk>", views.SendRecieveRead.as_view(), name="read"),#택배 위치 검색
-    #path("deliveryMan/create/", views.DeliveryManCreate.as_view(), name="")
-    #path("delete/<int:pk>", views.)
+    path("deliveryMan/list/", views.DeliveryManView.as_view(), name="DM_list"),
+    path("deliveryMan/create/", views.DeliveryManCreate.as_view(), name="DM_create"),
+    path("deliveryMan/read/<int:pk>", views.DeliveryManRead.as_view(), name="DM_read"),
+    path("deliveryMan/update/<int:pk>", views.DeliveryManUpdate.as_view(), name="DM_update"),
 ]

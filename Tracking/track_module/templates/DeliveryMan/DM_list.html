@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>PARCEL TRACKING</title>
+    </head>
+    <body>
+        <a href="{% url 'DM_create' %}">택배 위치 추가</a>
+        <br>
+        {% for dm in deliveryMan %}
+        <h1> 택배번호 : {{ dm.ParcelNums }} </h1>
+        <a href="{% url 'DM_read' dm.id %}"> 자세히보기 </a>
+        <a href="{% url 'DM_update' dm.id %}">택배위치 변경</a>
+        {% endfor %}
+    </body>
+
+</html>

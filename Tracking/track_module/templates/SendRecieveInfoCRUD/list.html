@@ -6,6 +6,7 @@
     </head>
     <body>
         <a href="{% url 'create' %}">택배추가</a>
+        <a href="{% url 'DM_list' %}">택배 상태로 가기(택배기사 화면)</a>
         <br>
         {% for sr in send_recieve %}
         <h1> 택배번호 : {{ sr.ParcelNum }} </h1>

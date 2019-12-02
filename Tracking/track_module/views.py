@@ -61,3 +61,28 @@ class SendRecieveRead(DetailView):
     template_name = 'SendRecieveInfoCRUD/detail.html'
     context_object_name = 'send_recieve'
     model = SendRecieveInfo
+
+class DeliveryManView(ListView):
+    template_name = 'DeliveryMan/DM_list.html'
+    context_object_name = 'deliveryMan'
+    model = DeliveryMan
+
+class DeliveryManCreate(CreateView):
+    template_name = 'DeliveryMan/DM_form.html'
+    model = DeliveryMan
+    fields = ["DeliveryMan_Name", "ManPhone", "ParcelNums", 
+            "ParcelLocation", "ParcelStatus"]
+    success_url = reverse_lazy("list")
+
+class DeliveryManRead(DetailView): #택배번호로 디테일 보여주기로 함수 바꾸기
+    template_name = 'DeliveryMan/DM_detail.html'
+    context_object_name = 'deliveryMan'
+    model = DeliveryMan
+
+class DeliveryManUpdate(UpdateView):
+    template_name = 'DeliveryMan/DM_form.html'
+    model = DeliveryMan
+    fields = ["DeliveryMan_Name", "ManPhone", "ParcelNums", 
+            "ParcelLocation", "ParcelStatus"]
+    success_url = reverse_lazy("list")
+

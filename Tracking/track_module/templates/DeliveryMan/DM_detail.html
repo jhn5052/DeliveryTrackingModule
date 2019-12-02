@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>PARCEL TRACKING</title>
+    </head>
+    <body>
+        <a href="{% url 'DM_update' deliveryMan.id %}">택배 위치 변경</a>
+        <br>
+        <h1> 택배번호 : {{ deliveryMan.ParcelNums }} </h1>
+        <h3> 택배기사 : {{ deliveryMan.DeliveryMan_Name }} </h3>
+        <h3> 업데이트된 시간 : {{ deliveryMan.Update_date }}</h3>
+        <h3> 택배위치 :{{ deliveryMan.ParcelLocation }} </h3>
+        <h3> 택배상태 : {{ deliveryMan.ParcelStatus }}</h3>
+
+    </body>
+
+</html>

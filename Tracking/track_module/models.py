@@ -37,4 +37,4 @@ class DeliveryMan(models.Model):
     ParcelStatus = models.CharField(max_length=100, default="배송 준비중")
 
     def __str__(self):
-        return self.ParcelNum
+        return self.ParcelNums
