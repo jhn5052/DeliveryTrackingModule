@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>PARCEL TRACKING</title>
+    </head>
+    <body>
+        <a href="{% url 'create' %}">택배추가</a>
+        <br>
+        {% for sr in send_recieve %}
+        <h1> 택배번호 : {{ sr.ParcelNum }} </h1>
+        <h3> 보내는 사람 : {{ sr.Sender_Name }} </h3>
+        <h3> 받는 사람 : {{ sr.Reciever_Name }}</h3>
+        <a href="{% url 'read' sr.ParcelNum %}"> 자세히보기 </a>
+        {% endfor %}
+    </body>
+
+</html>
