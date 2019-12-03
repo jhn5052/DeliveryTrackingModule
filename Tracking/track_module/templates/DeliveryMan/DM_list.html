@@ -5,7 +5,8 @@
         <title>PARCEL TRACKING</title>
     </head>
     <body>
-        <a href="{% url 'DM_create' %}">택배 위치 추가</a>
+        <h1>현재 배송중인 택배 리스트</h1>
+        <a href="{% url 'DM_create' %}">택배 위치 추가(택배 신규 생성)</a>
         <br>
         {% for dm in deliveryMan %}
         <h1> 택배번호 : {{ dm.ParcelNums }} </h1>

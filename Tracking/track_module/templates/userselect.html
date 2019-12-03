@@ -1,0 +1,58 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User Select</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        img {
+
+            margin-left: 85px;
+            margin-right: 85px;
+
+        }
+
+        button {
+            padding: 19px 38px 18px 39px;
+            margin: 30px;
+            color: #FFF;
+            background-color: #b4bbb6;
+            font-size: 25px;
+            text-align: center;
+            font-style: normal;
+            border-radius: 5px;
+            width: 30%;
+            border: 1px solid #b4bbb6 ;
+            border-width: 1px 1px 1px;
+            box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1> 원하는 서비스를 선택하세요. </h1>
+
+    <br><br><br><br>
+    <center>
+
+        <img src="{% static 'clipboard.png' %}" alt="My Image" width="300" height="300">
+
+        <img src="{% static 'folder.png' %}" alt="My Image" width="300" height="300">
+
+
+        <br>
+        <a href = "{% url 'create' %}"><button type="submit">택배 등록</button></a>
+        <a href = "{% url 'search' %}"><button type="submit">택배 위치 검색</button></a>
+    </center>
+</body>
+
+</html>

@@ -44,19 +44,44 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import SendRecieveInfo, DeliveryMan
+from rest_framework.filters import SearchFilter
 
 class SendRecieveView(ListView):
-    template_name = 'SendRecieveInfoCRUD/list.html'
+    template_name = 'select.html'
     context_object_name = 'send_recieve'
     model = SendRecieveInfo
 
+class SendRecieveSelectView(ListView):
+    template_name = 'userselect.html'
+    model = DeliveryMan
+    
 class SendRecieveCreate(CreateView):
     template_name = 'SendRecieveInfoCRUD/form.html'
     model = SendRecieveInfo
     fields = ["Sender_Name", "Sender_phone", "Sender_addr", 
         "Reciever_Name", "Reciever_phone", "Reciever_addr"]
     success_url = reverse_lazy("list")
+    #택배 등록될때 자동으로 db하나 저장되게 만들어야함
 
+class SendRecieveSearchView(ListView):
+    template_name = 'search.html'
+    model = DeliveryMan
+    context_object_name = 'deliveryMan'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        q = str(self.request.GET.get('ParcelNums', ''))
+        if q:
+            #print(q)
+            #print(type(qs.filter(ParcelNums__ParcelNum = q)))
+            deliveryMan_list = qs.filter(ParcelNums__ParcelNum__contains = q)
+            deliveryMan = deliveryMan_list.values()
+            #print(deliveryMan)
+            return deliveryMan
+        else:
+            return None
+
+            
 class SendRecieveRead(DetailView):
     template_name = 'SendRecieveInfoCRUD/detail.html'
     context_object_name = 'send_recieve'
@@ -86,3 +111,20 @@ class DeliveryManUpdate(UpdateView):
             "ParcelLocation", "ParcelStatus"]
     success_url = reverse_lazy("list")
 
+'''
+def home(request):
+    return render(request, 'select.html')
+
+def userSelect(request):
+    return render(request, 'userselect.html')
+
+def Search(request):
+    qs = DeliveryMan.objects.all()
+    q = request.GET.get('q', '')
+    if q:
+        qs = qs.filter(ParcelNums__icontains = q)
+    return render(request, 'search.html', 
+        {'DeliveryMan_list' : qs,
+        'q' : q})
+
+'''

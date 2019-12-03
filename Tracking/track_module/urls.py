@@ -15,7 +15,17 @@ urlpatterns = [
 """
 
 urlpatterns = [
-    path("", views.SendRecieveView.as_view(), name="list"), #전체 DB list보여줌
+    #path('', track_module.views.home, name="home"),
+    #path('userselect/', track_module.views.userSelect, name="userselct"),
+    #path('search/', track_module.views.Search, name="search"),
+    path('', views.SendRecieveView.as_view(), name="list"), #첫화면
+
+    #user select
+    path('userselect/', views.SendRecieveSelectView.as_view(), name="userselect"),
+    
+    #user search
+    path('search/', views.SendRecieveSearchView.as_view(), name="search"),
+    
     path("create/", views.SendRecieveCreate.as_view(), name="create"), #택배 생성
     path("read/<int:pk>", views.SendRecieveRead.as_view(), name="read"),#택배 위치 검색
     path("deliveryMan/list/", views.DeliveryManView.as_view(), name="DM_list"),
