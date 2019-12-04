@@ -166,10 +166,10 @@
             <th>택배상태</th>
         </tr>
     </thead>
-    
+    <tbody>
         {% for delivery in deliveryMan %}
     <form class="box">
-        <tbody>
+        
             <tr> 
                 <td>{{ delivery.ParcelNums_id }}</td>
                 <td>{{ delivery.DeliveryMan_Name }}</td>
@@ -177,14 +177,16 @@
                 <td>{{ delivery.ParcelLocation }}</td>
                 <td>{{ delivery.ParcelStatus }}</td>
             </tr>
-        </tbody>
-    </table>
+        
+    
     
         
     </form>
 
         {% endfor %}
         {% endif %}
+    </tbody>
+    </table>
     <center>
         <a href="{% url 'list' %}" class="btn btn-primary btn-lg" tabindex="-1" role="button">홈으로</a>
     </center>
