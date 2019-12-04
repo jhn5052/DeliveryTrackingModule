@@ -3,15 +3,145 @@
     <head>
         <meta charset="utf-8">
         <title>PARCEL TRACKING</title>
+        <style>
+
+h1 {
+            margin: 0 0 30px 0;
+            text-align: center;
+        }
+
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  color: #384047;
+}
+
+table {
+    width: 30cm;
+  max-width: 960px;
+  margin: 10px auto;
+}
+
+caption {
+  font-size: 1.6em;
+  font-weight: 400;
+  padding: 10px 0;
+}
+
+thead th {
+  font-weight: 400;
+  background: #8a97a0;
+  color: #FFF;
+}
+
+tr {
+  background: #f4f7f8;
+  border-bottom: 1px solid #FFF;
+  margin-bottom: 5px;
+}
+
+tr:nth-child(even) {
+  background: #e8eeef;
+}
+
+th, td {
+  text-align: left;
+  padding: 20px;
+  font-weight: 300;
+}
+
+tfoot tr {
+  background: none;
+}
+
+tfoot td {
+  padding: 10px 2px;
+  font-size: 0.8em;
+  font-style: italic;
+  color: #8a97a0;
+}
+
+
+
+
+
+
+
+        
+        
+        </style>
     </head>
     <body>
-        <a href="{% url 'list' %}">홈으로</a>
-        <br>
-        <h1> 택배번호 : {{ deliveryMan.ParcelNums }} </h1>
-        <h3> 택배기사 : {{ deliveryMan.DeliveryMan_Name }} </h3>
-        <h3> 업데이트된 시간 : {{ deliveryMan.Update_date }}</h3>
-        <h3> 택배위치 :{{ deliveryMan.ParcelLocation }} </h3>
-        <h3> 택배상태 : {{ deliveryMan.ParcelStatus }}</h3>
+
+            <html>
+                    <head>
+                      <meta charset="utf-8">
+                      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                      <title>Parcel Information</title>
+                      <link rel="stylesheet" href="css/normalize.css">
+                      <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+                      <link rel="stylesheet" href="css/main.css">
+                    </head>
+                    <body>
+                            <br>
+                        <h1>택배 상세 정보</h1>
+                        
+                  
+                      <table>
+                        
+                        
+                        <thead>
+                          <tr>
+                            <th scope="col"><b>분류</b></th>
+                            <th scope="col">정보</th>
+                            
+                          </tr>
+                        </thead>
+                        
+                        <tbody>
+                          <tr>
+                            <th scope="row"><b>택배 번호</b></th>
+                            <td><b>{{ deliveryMan.ParcelNums }}</b> </td>
+                            
+                          </tr>
+                          <tr>
+                            <th scope="row"><b>택배 기사</b></th>
+                            <td><b>{{ deliveryMan.DeliveryMan_Name }}</b></td>
+                            
+                          </tr>
+                          <tr>
+                            <th scope="row"><b>업데이트된 시간</b></th>
+                            <td><b>{{ deliveryMan.Update_date }}</b></td>
+                            
+                          </tr>
+                          <tr>
+                            <th scope="row"><b>택배 위치</b></th>
+                            <td><b>{{ deliveryMan.ParcelLocation }}</b></td>
+                            
+                          </tr>
+                          <th scope="row"><b>택배 상태</b></th>
+                            <td><b>{{ deliveryMan.ParcelStatus }}</b></td>
+
+                          
+                        </tbody>
+                      </table>
+                      
+                    </body>
+                  </html>
+
+                  <br>
+
+                  
+                  
+       <center> <a href="{% url 'list' %}">홈으로</a> </center>
+        
+
+    
 
     </body>
 

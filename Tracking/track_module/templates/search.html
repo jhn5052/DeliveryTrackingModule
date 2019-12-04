@@ -6,41 +6,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>택배 찾기</title>
+
     <style>
         .box {
             width: 1000px;
-            height: 300px;
+            height: 180px;
             margin: 10px auto;
             padding: 10px 20px;
-            background: #f4f7f8;
+            background: #daf0de;
             border-radius: 8px;
         }
-
         h1 {
             margin: 0 0 30px 0;
             text-align: center;
         }
-
-
-
         /*-------------------------------------*/
-
         .cf:before,
         .cf:after {
             content: "";
             display: table;
         }
-
         .cf:after {
             clear: both;
         }
-
         .cf {
             zoom: 1;
         }
 
-        /*-------------------------------------*/
+        table {
+                    width: 30cm;
+                max-width: 960px;
+                margin: 10px auto;
+                }
 
+                caption {
+                font-size: 1.6em;
+                font-weight: 400;
+                padding: 10px 0;
+                }
+
+                thead th {
+                font-weight: 400;
+                background: #8a97a0;
+                color: #FFF;
+                }
+
+                tr {
+                background: #f4f7f8;
+                border-bottom: 1px solid #FFF;
+                margin-bottom: 5px;
+                }
+
+                tr:nth-child(even) {
+                background: #e8eeef;
+                }
+
+                th, td {
+                text-align: left;
+                padding: 20px;
+                font-weight: 300;
+                }
+
+                tfoot tr {
+                background: none;
+                }
+
+                tfoot td {
+                padding: 10px 2px;
+                font-size: 0.8em;
+                font-style: italic;
+                color: #8a97a0;
+                }
+        /*-------------------------------------*/
         .form-wrapper {
             width: 450px;
             padding: 8px;
@@ -55,7 +92,6 @@
             -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .4) inset, 0 1px 0 rgba(255, 255, 255, .2);
             box-shadow: 0 1px 1px rgba(0, 0, 0, .4) inset, 0 1px 0 rgba(255, 255, 255, .2);
         }
-
         .form-wrapper input {
             width: 330px;
             height: 20px;
@@ -68,7 +104,6 @@
             -webkit-border-radius: 3px 0 0 3px;
             border-radius: 3px 0 0 3px;
         }
-
         .form-wrapper input:focus {
             outline: 0;
             background: #fff;
@@ -76,25 +111,21 @@
             -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, .8) inset;
             box-shadow: 0 0 2px rgba(0, 0, 0, .8) inset;
         }
-
         .form-wrapper input::-webkit-input-placeholder {
             color: #999;
             font-weight: normal;
             font-style: italic;
         }
-
         .form-wrapper input:-moz-placeholder {
             color: #999;
             font-weight: normal;
             font-style: italic;
         }
-
         .form-wrapper input:-ms-input-placeholder {
             color: #999;
             font-weight: normal;
             font-style: italic;
         }
-
         .form-wrapper button {
             overflow: visible;
             position: relative;
@@ -124,18 +155,40 @@
         <input type="text" placeholder="운송장 번호 입력" name="ParcelNums" value="{{ ParcelNums }}" required>
         <button type="submit">Search</button>
     </form>
-    <form class="box"> <!--td, tr로 만들어서 택배번호, 기사, 시간, 위치, 상태 만들기 -->
-        {% if deliveryMan %}
+    {% if deliveryMan %}
+    <table>
+        <thead>
+        <tr>
+            <th>택배번호</th>
+            <th>택배기사</th>
+            <th>업데이트 시간</th>
+            <th>택배위치</th>
+            <th>택배상태</th>
+        </tr>
+    </thead>
+    
         {% for delivery in deliveryMan %}
-        <hr>
-        <h3> 택배번호 : {{ delivery.ParcelNums }} </h3>
-        <h3> 택배기사 : {{ delivery.DeliveryMan_Name }} </h3>
-        <h3> 업데이트된 시간 : {{ delivery.Update_date }}</h3>
-        <h3> 택배위치 :{{ delivery.ParcelLocation }} </h3>
-        <h3> 택배상태 : {{ delivery.ParcelStatus }}</h3>
+    <form class="box">
+        <tbody>
+            <tr> 
+                <td>{{ delivery.ParcelNums_id }}</td>
+                <td>{{ delivery.DeliveryMan_Name }}</td>
+                <td>{{ delivery.Update_date }}</td>
+                <td>{{ delivery.ParcelLocation }}</td>
+                <td>{{ delivery.ParcelStatus }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+        
+    </form>
+
         {% endfor %}
         {% endif %}
-    </form>
+    <center>
+        <a href="{% url 'list' %}" class="btn btn-primary btn-lg" tabindex="-1" role="button">홈으로</a>
+    </center>
+    
 </body>
 
 </html>

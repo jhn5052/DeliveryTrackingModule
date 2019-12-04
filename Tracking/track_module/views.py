@@ -1,42 +1,3 @@
-"""
-from django.shortcuts import render, get_object_or_404
-from rest_framework import viewsets
-from .models import SendRecieveInfo, DeliveryMan
-from .serializers import SendRecieveSerializer, DeliveryManSerializer
-from rest_framework.filters import SearchFilter
-from rest_framework.response import Response
-
-
-
-class SendRecieveViewSet(viewsets.ModelViewSet):
-    queryset = SendRecieveInfo.objects.all()
-    serializer_class = SendRecieveSerializer
-
-    filter_backends = [SearchFilter]
-    search_fields = ('Sender_Name', 'Reciever_Name', 'ParcelNum')
-    
-    def get_queryset(self):
-        qs = super().get_queryset()
-        return qs
-     
-
-class DeliveryManViewSet(viewsets.ModelViewSet):
-    queryset = DeliveryMan.objects.all()
-    serializer_class = DeliveryManSerializer
-
-    filter_backends = [SearchFilter]
-    search_fields = ('ParcelNums__ParcelNum',)
-
-    def get_queryset(self):
-        qs = super().get_queryset()
-        #if self.request.user.is_authenticated: #관리자
-        #    qs = super().get_queryset()
-        #    qs = qs.filter(author=self.request.user)
-        #else: #아닐때
-        #    return qs 
-        return qs
-"""
-
 from django.shortcuts import render
 from django.utils import timezone
 from django.urls import reverse_lazy
@@ -46,23 +7,33 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import SendRecieveInfo, DeliveryMan
 from rest_framework.filters import SearchFilter
 
+
+#메인 페이지 렌더링
 class SendRecieveView(ListView):
     template_name = 'select.html'
     context_object_name = 'send_recieve'
     model = SendRecieveInfo
 
+#클라이언트 화면 페이지 렌더링
 class SendRecieveSelectView(ListView):
     template_name = 'userselect.html'
     model = DeliveryMan
     
+#발송인-수신인(택배 등록) 새로운 DB 생성
 class SendRecieveCreate(CreateView):
-    template_name = 'SendRecieveInfoCRUD/form.html'
+    template_name= 'SendRecieveInfoCRUD/form.html'
     model = SendRecieveInfo
     fields = ["Sender_Name", "Sender_phone", "Sender_addr", 
         "Reciever_Name", "Reciever_phone", "Reciever_addr"]
-    success_url = reverse_lazy("list")
-    #택배 등록될때 자동으로 db하나 저장되게 만들어야함
 
+    #택배가 새로 등록되면 기본적으로 택배 상태 DB 저장
+    def get_success_url(self):
+        qs = SendRecieveInfo.objects.get(ParcelNum = self.object.ParcelNum)
+        new_Parcel = DeliveryMan(DeliveryMan_Name="미정", ManPhone="미정", ParcelNums = qs,ParcelLocation="한국외대" ,ParcelStatus="배송준비중")
+        new_Parcel.save(force_insert=True)
+        return reverse_lazy('read', kwargs={'pk' : self.object.ParcelNum})
+    
+#택배 운송장 번호로 DB검색
 class SendRecieveSearchView(ListView):
     template_name = 'search.html'
     model = DeliveryMan
@@ -76,22 +47,24 @@ class SendRecieveSearchView(ListView):
             #print(type(qs.filter(ParcelNums__ParcelNum = q)))
             deliveryMan_list = qs.filter(ParcelNums__ParcelNum__contains = q)
             deliveryMan = deliveryMan_list.values()
-            #print(deliveryMan)
+            print(deliveryMan)
             return deliveryMan
         else:
             return None
 
-            
+#택배(발송인, 수신인) 상세 정보 페이지
 class SendRecieveRead(DetailView):
     template_name = 'SendRecieveInfoCRUD/detail.html'
     context_object_name = 'send_recieve'
     model = SendRecieveInfo
 
+#택배기사 layer : 배송중인 택배 상태 DB list
 class DeliveryManView(ListView):
     template_name = 'DeliveryMan/DM_list.html'
     context_object_name = 'deliveryMan'
     model = DeliveryMan
 
+#택배 상태 업데이트
 class DeliveryManCreate(CreateView):
     template_name = 'DeliveryMan/DM_form.html'
     model = DeliveryMan
@@ -99,32 +72,9 @@ class DeliveryManCreate(CreateView):
             "ParcelLocation", "ParcelStatus"]
     success_url = reverse_lazy("list")
 
-class DeliveryManRead(DetailView): #택배번호로 디테일 보여주기로 함수 바꾸기
+#택배(택배 기사 layer) 상세 정보
+class DeliveryManRead(DetailView):
     template_name = 'DeliveryMan/DM_detail.html'
     context_object_name = 'deliveryMan'
     model = DeliveryMan
 
-class DeliveryManUpdate(UpdateView):
-    template_name = 'DeliveryMan/DM_form.html'
-    model = DeliveryMan
-    fields = ["DeliveryMan_Name", "ManPhone", "ParcelNums", 
-            "ParcelLocation", "ParcelStatus"]
-    success_url = reverse_lazy("list")
-
-'''
-def home(request):
-    return render(request, 'select.html')
-
-def userSelect(request):
-    return render(request, 'userselect.html')
-
-def Search(request):
-    qs = DeliveryMan.objects.all()
-    q = request.GET.get('q', '')
-    if q:
-        qs = qs.filter(ParcelNums__icontains = q)
-    return render(request, 'search.html', 
-        {'DeliveryMan_list' : qs,
-        'q' : q})
-
-'''
