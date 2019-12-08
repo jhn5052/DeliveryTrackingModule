@@ -45,7 +45,7 @@ class SendRecieveSearchView(ListView):
         if q:
             #print(q)
             #print(type(qs.filter(ParcelNums__ParcelNum = q)))
-            deliveryMan_list = qs.filter(ParcelNums__ParcelNum__contains = q)
+            deliveryMan_list = qs.filter(ParcelNums__ParcelNum = q)
             deliveryMan = deliveryMan_list.values()
             print(deliveryMan)
             return deliveryMan
