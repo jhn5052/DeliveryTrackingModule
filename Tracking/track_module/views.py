@@ -39,6 +39,7 @@ class SendRecieveSearchView(ListView):
     model = DeliveryMan
     context_object_name = 'deliveryMan'
 
+    #요청에 맞는 정보 DB에서 찾아서 전달
     def get_queryset(self):
         qs = super().get_queryset()
         q = str(self.request.GET.get('ParcelNums', ''))
