@@ -44,8 +44,6 @@ class SendRecieveSearchView(ListView):
         qs = super().get_queryset()
         q = str(self.request.GET.get('ParcelNums', ''))
         if q:
-            #print(q)
-            #print(type(qs.filter(ParcelNums__ParcelNum = q)))
             deliveryMan_list = qs.filter(ParcelNums__ParcelNum = q)
             deliveryMan = deliveryMan_list.values()
             print(deliveryMan)
